@@ -1,0 +1,6 @@
+addpath('myAudioSignalProcessBox/asr/');
+addpath('myAudioSignalProcessBox/colea/');
+addpath('myAudioSignalProcessBox/dcpr/');
+addpath('myAudioSignalProcessBox/melodyRecognition/');
+addpath('myAudioSignalProcessBox/sap/');
+addpath('myAudioSignalProcessBox/utility/');
