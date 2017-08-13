@@ -19,21 +19,23 @@ gisData = clearPRE(gisData);
 
 % 1. 更新 gisData.PRE.data_ext
 locs = (gisData.PRE.status_candidate == 1);
-index = [find(locs==1)]';
+
 [b_area, l_area] = computeAL(gisData, gisData.other_building|gisData.PRE.self_building, locs, gisData.R);
-gisData.PRE.data_ext(index,1) = b_area(index);
-gisData.PRE.data_ext(index,2) = l_area(index);
+%gisData.PRE.data_ext(index,1) = b_area(index);
+%gisData.PRE.data_ext(index,2) = l_area(index);
+gisData.PRE.data_ext(locs, gisData.ModelParam.att_ext) = [b_area(locs),l_area(locs)];
 
 %[b_r_area, l_r_area] = computeRegionAL(gisData, gisData.other_building|gisData.PRE.self_building, locs);
 [b_r_area, l_r_area] = computeRegionAL(gisData, gisData.PRE.self_building, locs);
-gisData.PRE.data_ext(index,5) = b_r_area(index);
-gisData.PRE.data_ext(index,6) = l_r_area(index);
+%gisData.PRE.data_ext(index,5) = b_r_area(index);
+%gisData.PRE.data_ext(index,6) = l_r_area(index);
+gisData.PRE.data_ext(locs, gisData.ModelParam.fsqArea) = [b_r_area(locs),l_r_area(locs)];
 
 % Kengzi
 other_min_dist = computeMinDist(gisData, gisData.other_building, locs, gisData.K);
 self_min_dist = computeMinDist(gisData, gisData.PRE.self_building, locs, gisData.K);
-gisData.PRE.data_ext(index,3) = other_min_dist(index);
-gisData.PRE.data_ext(index,4) = self_min_dist(index);
+gisData.PRE.data_ext(locs,gisData.ModelParam.dOther) = other_min_dist(locs);
+gisData.PRE.data_ext(locs,gisData.ModelParam.dSelf) = self_min_dist(locs);
 
 % % DYX 
 % % other_min_dist = computeMinDist(gisData, gisData.other_building, locs, gisData.K);
@@ -42,6 +44,7 @@ gisData.PRE.data_ext(index,4) = self_min_dist(index);
 % gisData.PRE.data_ext(index,4) = self_min_dist(index);
 
 % 2. 更新 gisData.PRE.lp_attribute, lp_other_min_dist, lp_self_min_dist
+index = [find(locs==1)]';
 for i = index
     attributes = [gisData.data(i,gisData.ModelParam.att), gisData.PRE.data_ext(i, gisData.ModelParam.att_ext)]';
     gisData.PRE.lp_attribute(i) = gmmEval(attributes, gisData.model(1).GMM);

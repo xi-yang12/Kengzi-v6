@@ -39,35 +39,5 @@ gisData.data(:,3) = yy(:);
 b_idx = gisData.data(:,14)>180;
 gisData.data(b_idx,14) = gisData.data(b_idx,14) - 180;
 
-% Move to GisSetup
-% gisData.topo = [  1, NaN;
-%                   2, 1;
-%                   3, 1;
-%                   4, NaN;
-%                   5, 1;
-%                   6, 1;
-%                   7, 1;
-%                   8, 2;
-%                   9, NaN;
-%                  10, 6;
-%                  11, 2;
-%                  12, 2;
-%                  13, 3;
-%                  14, 11;
-%                  15, 8;
-%                  16, 8;
-%                  17, 11;
-%                  18, 8;
-%                  19, NaN;
-%                  20, 12;
-%                  21, 5;
-%                  22, NaN;
-%                  23, 11;
-%                  24, 12;
-%                  25, NaN;
-%                  26, 13;
-%                  27, NaN;
-%                  28, 11;
-%                  29, 23];  
 
 save('gisdata_processed20', 'gisData');

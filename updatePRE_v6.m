@@ -10,7 +10,7 @@ end
 gisData = clearPRE_ext(gisData);
 
 %% Step 1. 选择候选计算点 (为原有的candidate和)
-c_idx = ((gisData.PRE.status_candidate==1) | (gisData.data(:,8) > Slice));
+c_idx = ((gisData.PRE.status_candidate==1) & (gisData.data(:,8) > Slice));
 % all_points = gisData.data(:,2:3);
 % b_center = gisData.PRE.buildings(b_Idx).center;
 % c_idx = c_idx & ((abs(all_points(:,1)-b_center(1))<=gisData.S) & (abs(all_points(:,2)-b_center(2))<=gisData.S));
