@@ -6,8 +6,8 @@ function drawLayer2(gisData, vals, desp)
 % best_num = 0;  % 绘制前n个最好的点, 若其为0, 则不绘制
 
 % 划分为
-maxLayer =10;  % 最多可以划分为10层
-weight = [0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.128, 0.256, 0.489];   % 每层所占比重
+maxLayer = 8;  % 最多可以划分为10层
+weight = [0.005, 0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.365];   % 每层所占比重
 best_num = 6;  % 绘制前n个最好的点, 若其为0, 则不绘制
 
 %% 颜色设置
@@ -21,9 +21,9 @@ rgb_5 = [186, 92, 92];
 rgb_6 = [177, 100, 112];
 rgb_7 = [135, 109, 156];
 rgb_8 = [114, 134, 198];
-rgb_9 = [98, 140, 199];
-rgb_10 = [78, 164, 225];
-rgb_all = [rgb_1; rgb_2; rgb_3; rgb_4; rgb_5; rgb_6; rgb_7; rgb_8; rgb_9; rgb_10]/255;
+% rgb_9 = [98, 140, 199];
+% rgb_10 = [78, 164, 225];
+rgb_all = [rgb_1; rgb_2; rgb_3; rgb_4; rgb_5; rgb_6; rgb_7; rgb_8]/255;
 % == 方案一结束 =================================================
 
 % % == 方案二: 单独设置每个rgb ====================================
@@ -34,14 +34,20 @@ rgb_all = [rgb_1; rgb_2; rgb_3; rgb_4; rgb_5; rgb_6; rgb_7; rgb_8; rgb_9; rgb_10
 % rgb_all(:,3) = linspace(rgb_begin(3), rgb_end(3), maxLayer);
 % % == 方案二结束 =================================================
 
-% 黄氏建筑颜色
-rgb_huang = [0,0,0]/255;
+% 背景颜色
+rgb_nodata = [0,0,0]/255;
 
-% 外族建筑颜色
-rgb_other = [0,0,200]/255;
+% 外族颜色
+rgb_other = [0,0,0]/255;
 
-% 空白区域颜色
-rgb_nodata = [255,255,255]/255;
+% 河流颜色
+rgb_river = [0,0,80]/255;
+
+% 宜耕地颜色
+rgb_farm = [0,100,0]/255;
+
+% 非宜耕地颜色
+rgb_notfarm = [255,255,255]/255;
 
 % 最好的前n个点颜色
 rgb_bestN = [200, 200, 0]/255;
@@ -50,8 +56,10 @@ rgb_bestOne = [200, 200, 100]/255;
 
 %% 数据处理
 c_idx = not(isnan(vals));
-self_building = ((gisData.data(:,8) <= gisData.Slice) & (gisData.data(:,8) > 0));
-other_building = gisData.other_building;
+river = (gisData.data(:,gisData.ModelParam.river)> 0);
+other_building =(gisData.data(:,gisData.ModelParam.otHouse)>0);
+farm = (gisData.data(:,gisData.ModelParam.farm)>0);
+notfarm = (gisData.data(:,gisData.ModelParam.farm)<=0);
 % 归一化处理
 vals(c_idx) = (vals(c_idx)-min(vals(c_idx)))/(max(vals(c_idx))-min(vals(c_idx)));
 [layer, bestN, bestOne] = divide(vals, maxLayer, weight, best_num);
@@ -63,8 +71,11 @@ map.a = ones(size(vals)) * rgb_nodata(1);
 map.b = ones(size(vals)) * rgb_nodata(2);
 map.c = ones(size(vals)) * rgb_nodata(3);
 
-map = setColor(map, self_building, rgb_huang);
+map = setColor(map, river, rgb_river);
+map = setColor(map, farm, rgb_farm);
+map = setColor(map, notfarm, rgb_notfarm);
 map = setColor(map, other_building, rgb_other);
+
 
 % 设置每层的颜色
 for i = 1:maxLayer

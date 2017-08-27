@@ -21,14 +21,14 @@ tmp_data = data_p1(:,9+i-1)';
 dataInfoN(i).data = tmp_data(find(~isnan(tmp_data)));
 % 数据属性设置
 dataInfoN(i).name = gisData.txt{9+i-1}; % '高程';
-dataInfoN(i).barNum = 12;  % 分桶数量
+dataInfoN(i).barNum = 24;  % 分桶数量
 % 模型参数设置
 dataInfoN(i).model.covType=2;  
-dataInfoN(i).model.gaussianNum=3;   % 高斯混合数
+dataInfoN(i).model.gaussianNum=4;   % 高斯混合数
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=6;       % 迭代次数
+gmmTrainParam.maxIteration=10;       % 迭代次数
 dataInfoN(i).model.gmmTrainParam = gmmTrainParam;
 dataInfoN(i) = modelTrain(dataInfoN(i));
 
@@ -42,14 +42,14 @@ tmp_data = data_p1(:,9+i-1)';
 dataInfoN(i).data = tmp_data(find(~isnan(tmp_data)));
 % 数据属性设置
 dataInfoN(i).name = gisData.txt{9+i-1}; % '坡度';
-dataInfoN(i).barNum = 12;  % 分桶数量
+dataInfoN(i).barNum = 15;  % 分桶数量
 % 模型参数设置
 dataInfoN(i).model.covType=2;  
 dataInfoN(i).model.gaussianNum=2;   % 高斯混合数
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=9;       % 迭代次数
+gmmTrainParam.maxIteration=5;       % 迭代次数
 dataInfoN(i).model.gmmTrainParam = gmmTrainParam;
 dataInfoN(i) = modelTrain(dataInfoN(i));
 
@@ -63,14 +63,14 @@ tmp_data = data_p1(:,9+i-1)';
 dataInfoN(i).data = tmp_data(find(~isnan(tmp_data)));
 % 数据属性设置
 dataInfoN(i).name = gisData.txt{9+i-1}; % '坡度变化率';
-dataInfoN(i).barNum = 13;  % 分桶数量
+dataInfoN(i).barNum = 15;  % 分桶数量
 % 模型参数设置
 dataInfoN(i).model.covType=2;  
 dataInfoN(i).model.gaussianNum=3;   % 高斯混合数
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=8;       % 迭代次数
+gmmTrainParam.maxIteration=5;       % 迭代次数
 dataInfoN(i).model.gmmTrainParam = gmmTrainParam;
 dataInfoN(i) = modelTrain(dataInfoN(i));
 
@@ -105,14 +105,14 @@ tmp_data = data_p1(:,9+i-1)';
 dataInfoN(i).data = tmp_data(find(~isnan(tmp_data)));
 % 数据属性设置
 dataInfoN(i).name = gisData.txt{9+i-1}; % '坡向变化率';
-dataInfoN(i).barNum = 16;  % 分桶数量
+dataInfoN(i).barNum = 18;  % 分桶数量
 % 模型参数设置
 dataInfoN(i).model.covType=2;  
 dataInfoN(i).model.gaussianNum=3;   % 高斯混合数
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=4;       % 迭代次数
+gmmTrainParam.maxIteration=3;       % 迭代次数
 dataInfoN(i).model.gmmTrainParam = gmmTrainParam;
 dataInfoN(i) = modelTrain(dataInfoN(i));
 
@@ -160,24 +160,24 @@ handle = subplot(2,4,i-1);
 drawDataInfo(handle, dataInfoN(i));
 
 %-- 8：到山水汇线距离--%%%%%%%%%%%%%%%%%%
-i = 8;
-tmp_data = data_p1(:,9+i-1)';
-dataInfoN(i).data = tmp_data(find(~isnan(tmp_data)));
-% 数据属性设置
-dataInfoN(i).name = gisData.txt{9+i-1}; % '到山水汇线距离';
-dataInfoN(i).barNum = 15;  % 分桶数量
-% 模型参数设置
-dataInfoN(i).model.covType=2;  
-dataInfoN(i).model.gaussianNum=5;   % 高斯混合数
-gmmTrainParam=gmmTrainParamSet;
-gmmTrainParam.useKmeans=1;
-gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=4;       % 迭代次数
-dataInfoN(i).model.gmmTrainParam = gmmTrainParam;
-dataInfoN(i) = modelTrain(dataInfoN(i));
-
-handle = subplot(2,4,i-1);
-drawDataInfo(handle, dataInfoN(i));
+% i = 8;
+% tmp_data = data_p1(:,9+i-1)';
+% dataInfoN(i).data = tmp_data(find(~isnan(tmp_data)));
+% % 数据属性设置
+% dataInfoN(i).name = gisData.txt{9+i-1}; % '到山水汇线距离';
+% dataInfoN(i).barNum = 15;  % 分桶数量
+% % 模型参数设置
+% dataInfoN(i).model.covType=2;  
+% dataInfoN(i).model.gaussianNum=5;   % 高斯混合数
+% gmmTrainParam=gmmTrainParamSet;
+% gmmTrainParam.useKmeans=1;
+% gmmTrainParam.dispOpt=1;
+% gmmTrainParam.maxIteration=4;       % 迭代次数
+% dataInfoN(i).model.gmmTrainParam = gmmTrainParam;
+% dataInfoN(i) = modelTrain(dataInfoN(i));
+% 
+% handle = subplot(2,4,i-1);
+% drawDataInfo(handle, dataInfoN(i));
 
 
 %-- 9：到主路距离--%%%%%%%%%%%%%%%%%%
@@ -261,11 +261,11 @@ dataInfoE(i).name = '与外族居住区最小距离';
 dataInfoE(i).barNum = 18;  % 分桶数量
 % 模型参数设置
 dataInfoE(i).model.covType=2;  
-dataInfoE(i).model.gaussianNum=4;   % 高斯混合数
+dataInfoE(i).model.gaussianNum=5;   % 高斯混合数
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=25;       % 迭代次数
+gmmTrainParam.maxIteration=14;       % 迭代次数
 dataInfoE(i).model.gmmTrainParam = gmmTrainParam;
 dataInfoE(i) = modelTrain(dataInfoE(i));
 % 绘图
@@ -286,7 +286,7 @@ dataInfoE(i).model.gaussianNum=4;   % 高斯混合数
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=5;       % 迭代次数
+gmmTrainParam.maxIteration=12;       % 迭代次数
 dataInfoE(i).model.gmmTrainParam = gmmTrainParam;
 dataInfoE(i) = modelTrain(dataInfoE(i));
 % 绘图
@@ -295,45 +295,45 @@ drawDataInfo(handle, dataInfoE(i));
 
 
 %-%- Ext_5：分水区内居住面积--**************************************
-i = 5;
-tmp_data = data_p2(:,i)';
-dataInfoE(i).data = tmp_data(find(~isnan(tmp_data)));
-% 数据属性设置
-dataInfoE(i).name = '分水区内居住面积';
-dataInfoE(i).barNum = 3;  % 分桶数量
-% 模型参数设置
-dataInfoE(i).model.covType=2;  
-dataInfoE(i).model.gaussianNum=3;   % 高斯混合数
-gmmTrainParam=gmmTrainParamSet;
-gmmTrainParam.useKmeans=1;
-gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=2;       % 迭代次数
-dataInfoE(i).model.gmmTrainParam = gmmTrainParam;
-dataInfoE(i) = modelTrain(dataInfoE(i));
-% 绘图
-handle = subplot(2,4,i);
-drawDataInfo(handle, dataInfoE(i));
+% i = 5;
+% tmp_data = data_p2(:,i)';
+% dataInfoE(i).data = tmp_data(find(~isnan(tmp_data)));
+% % 数据属性设置
+% dataInfoE(i).name = '分水区内居住面积';
+% dataInfoE(i).barNum = 3;  % 分桶数量
+% % 模型参数设置
+% dataInfoE(i).model.covType=2;  
+% dataInfoE(i).model.gaussianNum=3;   % 高斯混合数
+% gmmTrainParam=gmmTrainParamSet;
+% gmmTrainParam.useKmeans=1;
+% gmmTrainParam.dispOpt=1;
+% gmmTrainParam.maxIteration=2;       % 迭代次数
+% dataInfoE(i).model.gmmTrainParam = gmmTrainParam;
+% dataInfoE(i) = modelTrain(dataInfoE(i));
+% % 绘图
+% handle = subplot(2,4,i);
+% drawDataInfo(handle, dataInfoE(i));
 
 
 %-%- Ext_6：分水区内耕地面积--**************************************
-i = 6;
-tmp_data = data_p2(:,i)';
-dataInfoE(i).data = tmp_data(find(~isnan(tmp_data)));
-% 数据属性设置
-dataInfoE(i).name = '分水区内耕地面积';
-dataInfoE(i).barNum = 12;  % 分桶数量
-% 模型参数设置
-dataInfoE(i).model.covType=2;  
-dataInfoE(i).model.gaussianNum=3;   % 高斯混合数
-gmmTrainParam=gmmTrainParamSet;
-gmmTrainParam.useKmeans=1;
-gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=3;       % 迭代次数
-dataInfoE(i).model.gmmTrainParam = gmmTrainParam;
-dataInfoE(i) = modelTrain(dataInfoE(i));
-% 绘图
-handle = subplot(2,4,i);
-drawDataInfo(handle, dataInfoE(i));
+% i = 6;
+% tmp_data = data_p2(:,i)';
+% dataInfoE(i).data = tmp_data(find(~isnan(tmp_data)));
+% % 数据属性设置
+% dataInfoE(i).name = '分水区内耕地面积';
+% dataInfoE(i).barNum = 12;  % 分桶数量
+% % 模型参数设置
+% dataInfoE(i).model.covType=2;  
+% dataInfoE(i).model.gaussianNum=3;   % 高斯混合数
+% gmmTrainParam=gmmTrainParamSet;
+% gmmTrainParam.useKmeans=1;
+% gmmTrainParam.dispOpt=1;
+% gmmTrainParam.maxIteration=3;       % 迭代次数
+% dataInfoE(i).model.gmmTrainParam = gmmTrainParam;
+% dataInfoE(i) = modelTrain(dataInfoE(i));
+% % 绘图
+% handle = subplot(2,4,i);
+% drawDataInfo(handle, dataInfoE(i));
 
 
 %-%- Ext_7：与父节点距离--**************************************
@@ -349,7 +349,7 @@ dataInfoE(i).model.gaussianNum=3;   % 高斯混合数
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=8;       % 迭代次数
+gmmTrainParam.maxIteration=6;       % 迭代次数
 dataInfoE(i).model.gmmTrainParam = gmmTrainParam;
 dataInfoE(i) = modelTrain(dataInfoE(i));
 % 绘图
@@ -357,7 +357,7 @@ handle = subplot(2,4,i);
 drawDataInfo(handle, dataInfoE(i));
 
 
-%-%- Ext_8：与父节点距离--**************************************
+%-%- Ext_8：与祖父节点距离--**************************************
 i = 8;
 tmp_data = data_p2(:,i)';
 dataInfoE(i).data = tmp_data(find(~isnan(tmp_data)));
@@ -366,11 +366,11 @@ dataInfoE(i).name = '与祖父节点距离';
 dataInfoE(i).barNum = 12;  % 分桶数量
 % 模型参数设置
 dataInfoE(i).model.covType=2;  
-dataInfoE(i).model.gaussianNum=2;   % 高斯混合数
+dataInfoE(i).model.gaussianNum=3;   % 高斯混合数
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=6;       % 迭代次数
+gmmTrainParam.maxIteration=4;       % 迭代次数
 dataInfoE(i).model.gmmTrainParam = gmmTrainParam;
 dataInfoE(i) = modelTrain(dataInfoE(i));
 % 绘图

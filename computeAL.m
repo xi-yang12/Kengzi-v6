@@ -9,4 +9,8 @@ for i = idx
     % fprintf('computeAL: %d ... \n', i);
     point = gisData.data(i,2:3);
     [b_area(i), l_area(i)] = computeALPoint(gisData, map_building, point, R);
+    if isnan(b_area(i))
+        error('Are you busy')
+    end
+ 
 end

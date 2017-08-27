@@ -12,8 +12,8 @@ end
 if gisData.PropertyType == 2 | gisData.PropertyType == 3
     c_prob(t_idx) = c_prob(t_idx) + ...
                     gisData.PRE.lp_other_min_dist(t_idx) + ...
-                    gisData.PRE.lp_self_min_dist(t_idx) + ...
-                    gisData.PRE.lp_fsq_area(t_idx);
+                    gisData.PRE.lp_self_min_dist(t_idx); 
+                    % gisData.PRE.lp_fsq_area(t_idx);
 
     % compute ext(7,8)
     p_building = (gisData.PRE.b_ID == b_Idx);

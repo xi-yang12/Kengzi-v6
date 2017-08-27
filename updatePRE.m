@@ -26,10 +26,10 @@ locs = (gisData.PRE.status_candidate == 1);
 gisData.PRE.data_ext(locs, gisData.ModelParam.att_ext) = [b_area(locs),l_area(locs)];
 
 %[b_r_area, l_r_area] = computeRegionAL(gisData, gisData.other_building|gisData.PRE.self_building, locs);
-[b_r_area, l_r_area] = computeRegionAL(gisData, gisData.PRE.self_building, locs);
+%[b_r_area, l_r_area] = computeRegionAL(gisData, gisData.PRE.self_building, locs);
 %gisData.PRE.data_ext(index,5) = b_r_area(index);
 %gisData.PRE.data_ext(index,6) = l_r_area(index);
-gisData.PRE.data_ext(locs, gisData.ModelParam.fsqArea) = [b_r_area(locs),l_r_area(locs)];
+%gisData.PRE.data_ext(locs, gisData.ModelParam.fsqArea) = [b_r_area(locs),l_r_area(locs)];
 
 % Kengzi
 other_min_dist = computeMinDist(gisData, gisData.other_building, locs, gisData.K);
@@ -62,10 +62,10 @@ for i = index
         warning('Exception Value! -- lp_self_min_dist\n');
     end
     
-    gisData.PRE.lp_fsq_area(i) = gmmEval(gisData.PRE.data_ext(i, gisData.ModelParam.fsqArea)', gisData.model(6).GMM);
-    if sum(gisData.PRE.lp_fsq_area>0)
-        warning('Exception Value! -- lp_fsq_area\n');
-    end
+%     gisData.PRE.lp_fsq_area(i) = gmmEval(gisData.PRE.data_ext(i, gisData.ModelParam.fsqArea)', gisData.model(6).GMM);
+%     if sum(gisData.PRE.lp_fsq_area>0)
+%         warning('Exception Value! -- lp_fsq_area\n');
+%    end
 end
 
 % 3.1 更新 gisData.PRE.buildings.b_area
@@ -93,8 +93,8 @@ for b_Idx = 1:length(gisData.PRE.buildings)
         computeMinDistPoint(gisData, map_self_building, gisData.PRE.buildings(b_Idx).center, gisData.K);
     
     % 计算建筑所在分水区内的建筑面积, 和可用耕地面积
-    [gisData.PRE.buildings(b_Idx).fsq_b_area, gisData.PRE.buildings(b_Idx).fsq_land] = ...
-        computeRegionALFsq(gisData, gisData.other_building|gisData.PRE.self_building, gisData.PRE.buildings(b_Idx).fsq_ID);
+    % [gisData.PRE.buildings(b_Idx).fsq_b_area, gisData.PRE.buildings(b_Idx).fsq_land] = ...
+        % computeRegionALFsq(gisData, gisData.other_building|gisData.PRE.self_building, gisData.PRE.buildings(b_Idx).fsq_ID);
 end
 
 if gisData.v == 1,
@@ -108,7 +108,7 @@ gisData.PRE.data_ext(:) = NaN;
 gisData.PRE.lp_attribute(:) = NaN;          % 每个候选区块对应的值, 用于判断该区块是否可以用作居住区
 gisData.PRE.lp_other_min_dist(:) = NaN;  
 gisData.PRE.lp_self_min_dist(:) = NaN;
-gisData.PRE.lp_fsq_area(:) = NaN; 
+% gisData.PRE.lp_fsq_area(:) = NaN; 
 
 for b_Idx = 1:length(gisData.PRE.buildings)
     gisData.PRE.buildings(b_Idx).b_area = NaN;
@@ -117,6 +117,6 @@ for b_Idx = 1:length(gisData.PRE.buildings)
     gisData.PRE.buildings(b_Idx).self_min_dist = NaN;
     gisData.PRE.buildings(b_Idx).lp_value = NaN;
 %    gisData.PRE.buildings(b_Idx).fsq_ID = NaN;
-    gisData.PRE.buildings(b_Idx).fsq_land = NaN;
-    gisData.PRE.buildings(b_Idx).fsq_b_area = NaN;
+%    gisData.PRE.buildings(b_Idx).fsq_land = NaN;
+%    gisData.PRE.buildings(b_Idx).fsq_b_area = NaN;
 end

@@ -16,7 +16,7 @@ if nargin<2 || sum(new_blocks) <= 0,
     gisData.PRE.buildings(b_Idx).size = 0;
     gisData.PRE.buildings(b_Idx).data = [];
     gisData.PRE.buildings(b_Idx).center = [];
-    gisData.PRE.buildings(b_Idx).fsq_ID = NaN;
+   % gisData.PRE.buildings(b_Idx).fsq_ID = NaN;
     warinig('\tBuinding (%d) is empty! \n', b_Idx);
 else   
     gisData.PRE.buildings(b_Idx).size = sum(new_blocks);
@@ -26,7 +26,7 @@ else
     gisData.PRE.buildings(b_Idx).data = gisData.data(block_idx,:);
     gisData.PRE.buildings(b_Idx).center = mean(gisData.PRE.buildings(b_Idx).data(:,2:3), 1); 
     % 第一个block的分水区号为该建筑的分水区号
-    gisData.PRE.buildings(b_Idx).fsq_ID = gisData.PRE.buildings(b_Idx).data(1,20); 
+    % gisData.PRE.buildings(b_Idx).fsq_ID = gisData.PRE.buildings(b_Idx).data(1,20); 
     % [b_r, l_r] = computeRegionALPoint(gisData, map_building, p_idx)
 end
 gisData.PRE.buildings(b_Idx).time = gisData.curTime;
@@ -42,8 +42,8 @@ gisData.PRE.buildings(b_Idx).b_area = NaN;
 gisData.PRE.buildings(b_Idx).l_area = NaN;
 gisData.PRE.buildings(b_Idx).other_min_dist = NaN;
 gisData.PRE.buildings(b_Idx).self_min_dist = NaN;
-gisData.PRE.buildings(b_Idx).fsq_land = NaN;
-gisData.PRE.buildings(b_Idx).fsq_b_area = NaN;
+% gisData.PRE.buildings(b_Idx).fsq_land = NaN;
+% gisData.PRE.buildings(b_Idx).fsq_b_area = NaN;
 
 % 更新状态变量
 gisData = updateBlockStatus(gisData, new_blocks, b_Idx);

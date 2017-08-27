@@ -33,8 +33,8 @@ function gisData = InitGisDataPRE(gisData)
 if gisData.v == 1,
     fprintf('InitGisDataPRE... \n');
 end
-
-gisData.PRE.status_candidate = (gisData.data(:,20)>0);  %盆区内所有点都有可能成为建筑候选点
+gisData.PRE.status_candidate = true(size(gisData.data,1),1);
+% gisData.PRE.status_candidate = (gisData.data(:,20)>0);  %盆区内所有点都有可能成为建筑候选点
 % 移除主河道及其缓冲区（不长居住点）和山水汇水线及其缓冲区（不长居住点）,以及其他居民区
 gisData.PRE.status_candidate = gisData.PRE.status_candidate & ...
                                not(gisData.data(:,18)==1) & ...

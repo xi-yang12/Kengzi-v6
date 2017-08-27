@@ -5,7 +5,7 @@ if nargin<1, selfdemo; return; end
 % end
 
 % The increments of living areas per 10 years
-A = [2678, 0, 0, 0, 0, 976, 5559, 4706, 4730, 4527, 25696, 0, 6277, 0, 5006, 7902, 701, 4305, 0, 6512, 0, 5023, 2250]/400;
+A = [9720, 0, 1665, 2668, 15202, 8869, 1384, 0, 773, 2629, 2878, 0, 2046, 28158, 25991, 11444]/100;
 A = A(A>0);  % Ignora
 B = zeros(size(A));
 
@@ -32,7 +32,7 @@ beta0 = [3, 0.01, 0.2, 0.7, 0.5]'
 %[beta, R, J, CovB, MSE, ErrorInfo]= nlinfit(B, A, modelfun, beta0);
 
 figure
-xx = 2:10:300;
+xx = 0:30:480;
 %plot(B, tmp);
 plot(B, tmp, '-^r', xx, modelfun(beta, xx), '-*')
 %plot(X, B, '-^r', xx, modelfun(beta, xx), '-*')

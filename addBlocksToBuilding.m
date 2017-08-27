@@ -1,8 +1,8 @@
 function gisData = addBlocksToBuilding(gisData, b_Idx, new_blocks)
 % 将new_blocks添加到PRE.buildings(b_Idx)中去
 
-if nargin<3 | sum(new_blocks)==0
-    warining('\t No block ia added to Building [%d] ... \n', b_Idx);
+if nargin<3 || sum(new_blocks)==0
+    warning('\t No block ia added to Building [%d] ... \n', b_Idx);
     return;
 end
 

@@ -13,11 +13,11 @@ trainingData = [data_p1(:,gisData.ModelParam.att),data_p2(:,gisData.ModelParam.a
 trainingData = trainingData';
 gisData.model(1).name = 'block_gmm';
 gisData.model(1).covType=2;
-gisData.model(1).gaussianNum=50;
+gisData.model(1).gaussianNum=20; % 高斯混合数量
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=5;
+gmmTrainParam.maxIteration=3; % 迭代次数
 [gisData.model(1).GMM, logLike]=gmmTrain(trainingData, [gisData.model(1).gaussianNum, gisData.model(1).covType], gmmTrainParam);
 gisData.model(1).gmmTrainParam = gmmTrainParam;
 
@@ -30,7 +30,7 @@ gisData.model(2).gaussianNum=4;  % barNum = 15
 gmmTrainParam=gmmTrainParamSet;
 gmmTrainParam.useKmeans=1;
 gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=7;
+gmmTrainParam.maxIteration=10;
 [gisData.model(2).GMM, logLike]=gmmTrain(trainingData, [gisData.model(2).gaussianNum, gisData.model(2).covType], gmmTrainParam);
 gisData.model(2).gmmTrainParam = gmmTrainParam;
 
@@ -79,18 +79,18 @@ gisData.model(5).gmmTrainParam = gmmTrainParam;
 
 % idx_6: gNum = 5, mIter =4, barNum = 6;
 % idx_5: gNum = 5, mIter =5, barNum = 6;
-trainingData = data_p2(:,gisData.ModelParam.fsqArea)';
-idx = find(isnan(trainingData) | trainingData==inf);
-trainingData(idx) = [];  % 移除含有inf的行, inf值主要存在于第一个建筑区和本族建筑区的距离, 因为刚开始没有本族建筑区, 所以为无穷大
-gisData.model(6).name = 'fsq_area';
-gisData.model(6).covType=2;
-gisData.model(6).gaussianNum=10;
-gmmTrainParam=gmmTrainParamSet;
-gmmTrainParam.useKmeans=1;
-gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=2;
-[gisData.model(6).GMM, logLike]=gmmTrain(trainingData, [gisData.model(6).gaussianNum, gisData.model(6).covType], gmmTrainParam);
-gisData.model(6).gmmTrainParam = gmmTrainParam;
+% trainingData = data_p2(:,gisData.ModelParam.fsqArea)';
+% idx = find(isnan(trainingData) | trainingData==inf);
+% trainingData(idx) = [];  % 移除含有inf的行, inf值主要存在于第一个建筑区和本族建筑区的距离, 因为刚开始没有本族建筑区, 所以为无穷大
+% gisData.model(6).name = 'fsq_area';
+% gisData.model(6).covType=2;
+% gisData.model(6).gaussianNum=10;
+% gmmTrainParam=gmmTrainParamSet;
+% gmmTrainParam.useKmeans=1;
+% gmmTrainParam.dispOpt=1;
+% gmmTrainParam.maxIteration=2;
+% [gisData.model(6).GMM, logLike]=gmmTrain(trainingData, [gisData.model(6).gaussianNum, gisData.model(6).covType], gmmTrainParam);
+% gisData.model(6).gmmTrainParam = gmmTrainParam;
 
 % %% 训练建筑面积大小的GMM模型
 % trainingData = [gisData.buildings.size; gisData.buildings.b_area; gisData.buildings.l_area; gisData.buildings.other_min_dist; gisData.buildings.self_min_dist];

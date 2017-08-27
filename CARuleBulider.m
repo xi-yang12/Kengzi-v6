@@ -4,7 +4,7 @@ currP = gisData.Population.Model(gisData.Population.beta, gisData.curTime);
 nextP = gisData.Population.Model(gisData.Population.beta, gisData.curTime + gisData.Step);
 rateP = nextP/currP;
 for i=1:length(gisData.PRE.buildings)
-    gisData.PRE.buildings(i).people = rateP * gisData.PRE.buildings(i).people * gisData.Population.HakkaRate;
+    gisData.PRE.buildings(i).people = rateP * gisData.PRE.buildings(i).people % * gisData.Population.HakkaRate;
 end
 % 当前时间增加
 gisData.curTime  = gisData.curTime + gisData.Step;
@@ -48,6 +48,9 @@ gisData.map.a = data_deshape(gisData.PRE.self_building, gisData.row, gisData.col
 
 
 function b_expand = isToExpand(gisData, b_Idx)
+other_building = gisData.other_building; % 外姓居住点
+self_building = gisData.PRE.self_building;% 本姓居住点
+
 % b_feature = [gisData.PRE.buildings(b_Idx).size; 
 % gisData.PRE.buildings(b_Idx).b_area; 
 % gisData.PRE.buildings(b_Idx).l_area; 
@@ -64,15 +67,19 @@ function b_expand = isToExpand(gisData, b_Idx)
 %     end
 % end
 
-% 建筑是否扩展由两个因素决定, 一个是自身大小, 一个是分区房地比
+% 建筑是否扩展由两个因素决定, 一个是自身大小, （一个是耕作半径内房地比）
 prob = 1/gisData.PRE.buildings(b_Idx).size;
-if prob > rand*0.33,
+if prob > rand*0.5
     % 计算比例: 分水区可用耕地/分水区建筑面积.
-    ratio = gisData.PRE.buildings(b_Idx).fsq_land / gisData.PRE.buildings(b_Idx).fsq_b_area;
-    if gisData.crazy==1 || ratio > gisData.Expand.Ratio+10-20*rand,
-       b_expand = 1;
-       return;
-    end  
+%     ratio = gisData.PRE.buildings(b_Idx).fsq_land / gisData.PRE.buildings(b_Idx).fsq_b_area;
+%     if gisData.crazy==1 || ratio > gisData.Expand.Ratio+10-20*rand, 
+    % 计算比例：耕作半径范围内耕地面积/耕作半径内建筑面积
+       [B, L] = computeALPoint(gisData, other_building|self_building, gisData.PRE.buildings(b_Idx).center, gisData.R);
+       ratio = L/B;
+       if ratio > gisData.Expand.Ratio+2-4*rand
+           b_expand = 1;
+           return;
+       end  
 end
 
 b_expand = 0;
@@ -93,8 +100,6 @@ if e_num < 1
     return;
 end
 
-% e_idx = find(gisData.Expand(2,:)>=rand);
-% e_num = gisData.Expand(1, e_idx(1));
 
 %index definition for cell update
 x = 2:gisData.row-1;
@@ -166,10 +171,10 @@ end
 c_idx = (gisData.PRE.status_candidate==1);
 all_points = gisData.data(:,2:3);
 b_center = gisData.PRE.buildings(b_Idx).center;
-t_idx = c_idx & ((abs(all_points(:,1)-b_center(1))<=gisData.S) & (abs(all_points(:,2)-b_center(2))<=gisData.S));
+t_idx = c_idx & ((abs(all_points(:,1)-b_center(1))<=gisData.S) & (abs(all_points(:,2)-b_center(2))<=gisData.S)); 
 
 % 计算似然概率
-c_prob = computeSplitLogProp(gisData, t_idx, b_Idx);
+c_prob = computeSplitLogProp(gisData, t_idx, b_Idx); %数据，候选点，建筑编号
             
 [m_value, block_idx] = max(c_prob);
 
@@ -181,5 +186,4 @@ new_blocks = false(size(gisData.PRE.status_candidate));
 
 new_blocks(block_idx) = 1;
 [gisData, new_b_Idx] = createNewBuilding(gisData, new_blocks, b_Idx);
-
 
