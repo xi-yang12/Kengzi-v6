@@ -1,31 +1,31 @@
-% % %function CA4
-% % %clf
-%  clear
-% 
-% %gisData = GisDataRead();
-% %load('gisdata_processed.mat');
-% 
-% % gisData = GisDataRead20();
+% %function CA4
+% %clf
+ clear
+
+%gisData = GisDataRead();
+%load('gisdata_processed.mat');
+
+gisData = GisDataRead20();
 % load('gisdata_processed10.mat');
-% 
-% % 参数设置
-% gisData = GisSetup(gisData);
-% 
-% % 计算扩展数据
-% gisData = computeGisData_ext(gisData);
-% 
-% % 参数学习
-% gisData = ParamEvaluation_V6(gisData);
-% 
-% save('gisdata_processed_trained', 'gisData');
-% % load('gisdata_processed_trained.mat');
-% 
-% %% =============================================
-% %CA setup & initialization
-% gisData = Initialize(gisData);
+
+% 参数设置
+gisData = GisSetup(gisData);
+
+% 计算扩展数据
+gisData = computeGisData_ext(gisData);
+
+% 参数学习
+gisData = ParamEvaluation_V6(gisData);
+
+save('gisdata_processed_trained', 'gisData');
+% load('gisdata_processed_trained.mat');
+
+%% =============================================
+%CA setup & initialization
+gisData = Initialize(gisData);
 
 %% 从中间状态继续执行
-load('map-300-P4-4');
+% load('map-300-P4-4');
 
 
 %% =============================================
@@ -56,7 +56,7 @@ run = 1; %wait for a draw
 freeze = 0; %wait for a freeze
 stepnumber = 0;
 
-while (stop==0) && stepnumber <=1000 
+while (stop==0) && stepnumber <=600 
     gisData = CARuleBulider(gisData);
     gisData = RateAll(gisData);
     if gisData.crazy==0 && gisData.PRE.rateall(end) <= gisData.rateFB

@@ -1,7 +1,7 @@
 function gisData = CARuleBulider4(gisData)
 %% Step 1: 人口增长
-currP = gisData.Population.Model(gisData.Population.beta, gisData.curTime);
-nextP = gisData.Population.Model(gisData.Population.beta, gisData.curTime + gisData.Step);
+currP = gisData.Population.Model(gisData.Population.beta, gisData.curTime-1);
+nextP = gisData.Population.Model(gisData.Population.beta, gisData.curTime-1 + gisData.Step);
 rateP = nextP/currP;
 for i=1:length(gisData.PRE.buildings)
     gisData.PRE.buildings(i).people = rateP * gisData.PRE.buildings(i).people % * gisData.Population.HakkaRate;
@@ -76,7 +76,7 @@ if prob > rand*0.5
     % 计算比例：耕作半径范围内耕地面积/耕作半径内建筑面积
        [B, L] = computeALPoint(gisData, other_building|self_building, gisData.PRE.buildings(b_Idx).center, gisData.R);
        ratio = L/B;
-       if ratio > gisData.Expand.Ratio+2-4*rand
+       if ratio > gisData.Expand.Ratio+1.95-3.9*rand
            b_expand = 1;
            return;
        end  

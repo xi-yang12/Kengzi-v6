@@ -11,7 +11,7 @@ clear
 % load('gisdata_processed.mat');
 
 gisData = GisDataRead20();
-load('gisdata_processed20.mat');
+load('gisdata_processed10.mat');
 
 % ²ÎÊıÉèÖÃ
 gisData = GisSetup(gisData);

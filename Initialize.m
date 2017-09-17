@@ -34,7 +34,7 @@ gisData.map.b = (data_deshape(gisData.data(:,6), row, col)>0);
 %b = 1 - 0.4*b/max(max(b));
 
 
-function gisData = InitStartPoints(gisData)
+function gisData = InitStartPoints(gisData)%模拟初始点
 %     % 初始化一组点用作建筑选址的起始点
 % new_blocks  = false(size(gisData.PRE.self_building));
 % % new_blocks(173289) = 1;  % for 10x10
@@ -42,15 +42,26 @@ function gisData = InitStartPoints(gisData)
 % 
 % [gisData, b_Idx] = createNewBuilding(gisData, new_blocks, NaN);
 
-for i = 1:length(gisData.StartPoint)
+for i = 1:length(gisData.startBuilding)
     % 初始化一组点用作建筑选址的起始点
     new_blocks  = false(size(gisData.PRE.self_building));
-    new_blocks(gisData.StartPoint(i)) = 1;   % for 20x20
-    [gisData, b_Idx] = createNewBuilding(gisData, new_blocks, NaN);
+    new_blocks(gisData.startBuilding(i).blocks) = 1;   % for 20x20
+    [gisData, b_Idx] = createNewBuilding(gisData, new_blocks, gisData.startBuilding(i).parent);
 
     % 若parent_ID==NaN为起始点
-    gisData.PRE.buildings(b_Idx).people = gisData.StartPopulation;
+    gisData.PRE.buildings(b_Idx).people = gisData.startBuilding(i).StartPopulation;
 end
+
+% function gisData = InitStartPoints(gisData) %预测初始点
+% for i = 1:130
+%     % 初始化一组点用作建筑选址的起始点
+%     new_blocks  = (gisData.data(:,gisData.ModelParam.seHouse)==i);
+%     [gisData, b_Idx] = createNewBuilding(gisData, new_blocks, gisData.topo(i:2));
+% 
+%     % 若parent_ID==NaN为起始点
+%     gisData.PRE.buildings(b_Idx).people = sum(new_blocks) * gisData.PvA;
+%     gisData.PRE.buildings(b_Idx).stopped = 1;
+% end
 
 % for i = gisData.train_bIdx
     % 初始化一组点用作建筑选址的起始点

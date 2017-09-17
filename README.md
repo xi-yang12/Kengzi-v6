@@ -17,3 +17,26 @@ gisData.PRE.status_candidate, 表示可用于选址的点，该数据来自于�
 
 + **computeSplitLogPropV6(gisData, c_idx)**
     建筑选址前，需要计算每个候选者被选中的似然概率， 与computeSplitLogProp不同的是在V6中移除了与自身建筑距离的影响
+
+
+## 功能入口
+### 1.准确率  
+coverRatio2.m
+
+
+### 2.评估像元优劣  
+computevaluaGMM.m 
+
+
+
+### 3.比较模拟数量和真实数量  
+showtotal.m 
+
+
+## 使用方法
+### 1. 如何调试
+
+
+### 2. 如何定位数据
+
+### 3. 

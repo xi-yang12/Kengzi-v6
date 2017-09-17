@@ -13,7 +13,7 @@ end
 A=[0, 9720, 0, 1665, 2668, 15202, 8869, 1384, 0, 773, 2629, 2878, 0, 2046, 28158, 25991, 11444, 26809]/100;
 for i = 1:length(A)
     P(i) = sum(A(1:i));
-    year(i) = (i-1) * 30 + 1;
+    year(i) = (i-1) * 30;
 end
 P = P./max(P);
 % year = year / 100
@@ -76,6 +76,7 @@ beta0 = [0.241487476655377, 7.365943709314174, 0.053007017209444, 0.773927028978
 modelfun = @(b,x)(b(1)./(1+exp(-b(3)*x+b(2))) + b(4)./(1+exp(-b(6)*x+b(5)))+b(7));
 
 beta = PopulationSpeed(modelfun, beta0, false);
+% beta = PopulationSpeed(modelfun);
 
                         
 
