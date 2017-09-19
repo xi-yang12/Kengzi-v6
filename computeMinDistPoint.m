@@ -4,7 +4,7 @@ idx1 = (map_building==1);
 active_points = all_points(idx1,:);
 
 active_num =  size(active_points,1);
-if active_num == 0, 
+if active_num == 0 
     m_d = NaN; 
     return;
 elseif active_num < K    % 当满足条件的block小于K时, 使K等于有效区块数量

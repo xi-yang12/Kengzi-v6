@@ -56,7 +56,7 @@ run = 1; %wait for a draw
 freeze = 0; %wait for a freeze
 stepnumber = 0;
 
-while (stop==0) && stepnumber <=600 
+while (stop==0) && stepnumber <=500 
     gisData = CARuleBulider(gisData);
     gisData = RateAll(gisData);
     if gisData.crazy==0 && gisData.PRE.rateall(end) <= gisData.rateFB

@@ -49,33 +49,35 @@ gmmTrainParam.maxIteration=20;
 [gisData.model(3).GMM, logLike]=gmmTrain(trainingData, [gisData.model(3).gaussianNum, gisData.model(3).covType], gmmTrainParam);
 gisData.model(3).gmmTrainParam = gmmTrainParam;
 
+if ~isempty(gisData.ModelParam.distP)
+    trainingData = data_p2(:,gisData.ModelParam.distP)';
+    idx = find(isnan(trainingData) | trainingData==inf);
+    trainingData(idx) = [];  % 移除含有inf的行, inf值主要存在于第一个建筑区和本族建筑区的距离, 因为刚开始没有本族建筑区, 所以为无穷大
+    gisData.model(4).name = 'p_dist';
+    gisData.model(4).covType=1;
+    gisData.model(4).gaussianNum=5;   % barNum = 12, 15
+    gmmTrainParam=gmmTrainParamSet;
+    gmmTrainParam.useKmeans=1;
+    gmmTrainParam.dispOpt=1;
+    gmmTrainParam.maxIteration=16;
+    [gisData.model(4).GMM, logLike]=gmmTrain(trainingData, [gisData.model(4).gaussianNum, gisData.model(4).covType], gmmTrainParam);
+    gisData.model(4).gmmTrainParam = gmmTrainParam;
+end
 
-trainingData = data_p2(:,gisData.ModelParam.distP)';
-idx = find(isnan(trainingData) | trainingData==inf);
-trainingData(idx) = [];  % 移除含有inf的行, inf值主要存在于第一个建筑区和本族建筑区的距离, 因为刚开始没有本族建筑区, 所以为无穷大
-gisData.model(4).name = 'p_dist';
-gisData.model(4).covType=1;
-gisData.model(4).gaussianNum=5;   % barNum = 12, 15
-gmmTrainParam=gmmTrainParamSet;
-gmmTrainParam.useKmeans=1;
-gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=16;
-[gisData.model(4).GMM, logLike]=gmmTrain(trainingData, [gisData.model(4).gaussianNum, gisData.model(4).covType], gmmTrainParam);
-gisData.model(4).gmmTrainParam = gmmTrainParam;
-
-
-trainingData = data_p2(:,gisData.ModelParam.distPP)';
-idx = find(isnan(trainingData) | trainingData==inf);
-trainingData(idx) = [];  % 移除含有inf的行, inf值主要存在于第一个建筑区和本族建筑区的距离, 因为刚开始没有本族建筑区, 所以为无穷大
-gisData.model(5).name = 'pp_dist';
-gisData.model(5).covType=2;
-gisData.model(5).gaussianNum=42;  % barNum = 7, 10
-gmmTrainParam=gmmTrainParamSet;
-%gmmTrainParam.useKmeans=1;
-gmmTrainParam.dispOpt=1;
-gmmTrainParam.maxIteration=17;
-[gisData.model(5).GMM, logLike]=gmmTrain(trainingData, [gisData.model(5).gaussianNum, gisData.model(5).covType], gmmTrainParam);
-gisData.model(5).gmmTrainParam = gmmTrainParam;
+if ~isempty(gisData.ModelParam.distPP)
+    trainingData = data_p2(:,gisData.ModelParam.distPP)';
+    idx = find(isnan(trainingData) | trainingData==inf);
+    trainingData(idx) = [];  % 移除含有inf的行, inf值主要存在于第一个建筑区和本族建筑区的距离, 因为刚开始没有本族建筑区, 所以为无穷大
+    gisData.model(5).name = 'pp_dist';
+    gisData.model(5).covType=2;
+    gisData.model(5).gaussianNum=42;  % barNum = 7, 10
+    gmmTrainParam=gmmTrainParamSet;
+    %gmmTrainParam.useKmeans=1;
+    gmmTrainParam.dispOpt=1;
+    gmmTrainParam.maxIteration=17;
+    [gisData.model(5).GMM, logLike]=gmmTrain(trainingData, [gisData.model(5).gaussianNum, gisData.model(5).covType], gmmTrainParam);
+    gisData.model(5).gmmTrainParam = gmmTrainParam;
+end
 
 % idx_6: gNum = 5, mIter =4, barNum = 6;
 % idx_5: gNum = 5, mIter =5, barNum = 6;

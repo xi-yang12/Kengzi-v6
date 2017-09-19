@@ -196,18 +196,19 @@ gisData.topo = [ 1, NaN, 1, 2;
                 130,41, 17, 129];  
 
 %% 训练参数设置
-gisData.train_bIdx = 1:130;
+gisData.train_bIdx = 1:32;
 
-% 断面建筑选择
-gisData.chkBIdx = 130;
-gisData.Slice = gisData.topo(gisData.chkBIdx, 3);
+% % 断面建筑选择
+% gisData.chkBIdx = 80;
+% gisData.Slice = gisData.topo(gisData.chkBIdx, 3);
+% % check whether the setting is valid?
+% idxSlice = find(gisData.topo(:, 3) == gisData.Slice);
+% maxBuild =  gisData.topo(idxSlice(1), 4);
+% if gisData.chkBIdx > maxBuild
+%     error('The setting for gisData.chkBIdx and gisData.Slice is inconsistent\n');
+% end
 
-% check whether the setting is valid?
-idxSlice = find(gisData.topo(:, 3) == gisData.Slice);
-maxBuild =  gisData.topo(idxSlice(1), 4);
-if gisData.chkBIdx > maxBuild
-    error('The setting for gisData.chkBIdx and gisData.Slice is inconsistent\n');
-end
+gisData.Slice_v7 = 130; % for CA_v7_EvalBlocks.m
 
 %% 用于选址
  % 选择S范围内的点作为选址点, 当S = inf,表示候选点为地图的所有点
